@@ -1,0 +1,51 @@
+<%- include('./partials/nav.ejs', {title:"Daily Blogs - Home"}) %>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            <h1>Daily Blogs</h1>
+                            <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    
+                <% if(posts.length!=0) { %>
+                    <% posts.forEach(function(post){ %>
+                    <!-- Post preview-->
+                    <div class="post-preview">
+                        <a href="/posts/post/<%= post._id %>">
+                            <h2 class="post-title"><%= post.heading %></h2>
+                            <h3 class="post-subtitle"><%= post.subheading %></h3>
+                        </a>
+                        <p class="post-meta">
+                            Posted by
+                            <a href="#!"><%= post.user.name %></a>
+                            on <%= post.createdAt %>
+                            <small class="d-block">Likes: <%= post.likes.length %></small>
+                        </p>
+                    </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                    <% }) %>
+                <% } else{ %>
+                    <h3 class="my-5 post-meta">No Posts!!</h3>
+                <% } %>
+                    <!-- Pager-->
+                    <div class="d-flex justify-content-between mb-4">
+                        
+                        <a class="btn btn-primary text-uppercase" href="/posts/create">Create Post</a>
+                        <a class="btn btn-primary text-uppercase" href="/posts">Older Posts →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<%- include('./partials/footer.ejs') %>

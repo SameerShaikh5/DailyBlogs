@@ -1,0 +1,109 @@
+<%- include('./partials/nav.ejs', {title:"Daily Blogs - " +  post.heading }) %>
+
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url('data:image/jpeg;base64,<%= post.image.toString("base64") %>');">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1><%= post.heading %></h1>
+                        <h2 class="subheading"><%= post.subheading %></h2>
+                        <span class="meta">
+                            Posted by
+                            <a href="#!"><%= post.user.name %></a> On <%= post.createdAt %>
+                        </span>
+                        
+                        <!-- Edit and Delete Buttons -->
+                         <% if(isloggedin) { %>
+                        <div class="mt-3">
+                            <a href="/posts/edit/<%= post._id %>" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="/posts/delete/<%= post._id %>" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                        <% } %>
+
+                        <!-- like section -->
+                        <div class="like-section mt-3">
+                            Likes: <span id="likeCount"><%= post.likes.length %></span>
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Post Content-->
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p><%= post.content %></p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Like section -->
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <a href="/posts/post/like/<%= post._id %>" class="text-decoration-none">
+                        <i class="fas fa-thumbs-up" style="font-size: 1.5rem; color: #007bff;"></i>
+                        <span id="likeCount"><%= post.likes.length %></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- Comments Section -->
+    <section class="comments-section">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <h2 class="section-heading">Comments</h2>
+
+                    <!-- Form to Submit a Comment -->
+                    <form action="/posts/post/comment/<%= post._id %>" method="post" class="mb-4">
+                        <div class="mb-3">
+                            <label for="commentText" class="form-label">Your Comment</label>
+                            <textarea name="comment" id="commentText" class="form-control" rows="3"
+                                placeholder="Enter your comment" required></textarea>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+
+
+                    <!-- Display Comments -->
+                    <div class="comments-list">
+                        <% if(comments){ %>
+                            <% comments.forEach(function(comment){ %>
+                                <div class="comment mb-3">
+                                    <h5>
+                                        <%= comment.user.name %>
+                                    </h5>
+                                    <p>
+                                        <%= comment.comment %>
+                                    </p>
+                                    <small class="text-muted"><%= comment.date %></small>
+                                    <hr>
+                                </div>
+                            <% }) %>
+                        <% }else{ %>
+                            <p class="text-muted">No comments yet. Be the first to comment!</p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer-->
+    <%- include('./partials/footer.ejs') %>
