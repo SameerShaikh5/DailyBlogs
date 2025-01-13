@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser')
 const checkToken = require('./middleware/checkToken')
 const expressSession = require('express-session')
 const flash = require('connect-flash')
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 //Configure dotenv file
 require('dotenv').config()
