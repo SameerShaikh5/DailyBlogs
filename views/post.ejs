@@ -1,7 +1,19 @@
-<%- include('./partials/nav.ejs', {title:"Daily Blogs - " +  post.heading }) %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog App - <%= post.heading %></title>
+    <%- include('./partials/styles.ejs') %>
+</head>
+<body>
+    <!-- Navigation -->
+    <%- include('./partials/nav.ejs') %>
+    
+    
 
     <!-- Page Header-->
-    <header class="masthead" style="background-image: url('data:image/jpeg;base64,<%= post.image.toString("base64") %>');">
+    <header class="masthead" style="background-image: url('<%= post.image %>');">
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
@@ -14,11 +26,11 @@
                         </span>
                         
                         <!-- Edit and Delete Buttons -->
-                         <% if(isloggedin) { %>
+                         <% if(isadmin) { %>
                         <div class="mt-3">
                             <a href="/posts/edit/<%= post._id %>" class="btn btn-warning btn-sm">Edit</a>
                             <form action="/posts/delete/<%= post._id %>" method="post" class="d-inline">
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                <button type="submit" onclick="return confirm('Are You sure to delete this post?')" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </div>
                         <% } %>
@@ -105,5 +117,9 @@
     </section>
 
 
-    <!-- Footer-->
+    <!-- footer -->
     <%- include('./partials/footer.ejs') %>
+    
+</body>
+</html>
+

@@ -1,14 +1,20 @@
 const mongoose = require('mongoose')
 
 const PostModel = mongoose.Schema({
-    image:Buffer,
-    heading:String,
-    subheading:String,
+    image:String,
+    heading:{
+        type:String
+    },
+    subheading:{
+        type:String
+    },
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'user'
     },
-    content:String,
+    content:{
+        type:String
+    },
     createdAt: { type: Date, default: Date.now },
     likes:[
         {

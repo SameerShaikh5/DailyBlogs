@@ -27,3 +27,8 @@ window.addEventListener('DOMContentLoaded', () => {
         scrollPos = currentTop;
     });
 })
+
+
+// custom js
+
+// Set a timeout to automatically dismiss the alert after 2-3 seconds

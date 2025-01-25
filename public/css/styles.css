@@ -10796,3 +10796,13 @@ header.masthead .post-heading .meta a {
     font-size: 2.25rem;
   }
 }
+
+
+.alert{
+  position: fixed;
+    top: 2rem;
+    z-index: 2000;
+    width: 35%;
+    justify-self: anchor-center;
+    border-radius: 4px;
+}

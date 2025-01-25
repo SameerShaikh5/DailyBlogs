@@ -1,9 +1,25 @@
-<%- include('./partials/nav.ejs', {title:"Daily Blogs - Home"}) %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog App - Edit</title>
+    <%- include('./partials/styles.ejs') %>
+</head>
+<body>
+    <% if (message && message.length > 0) { %>
+        <% const { text, type } = message[0]; %>
+        <div class="alert alert-<%= type %> alert-dismissible fade show" role="alert" id="autoDismissAlert">
+            <%= text %>
+            <button type="button" class="btn-close ml-3 btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+<% } %>
+    
     <!-- Main Content -->
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h1>Edit Blog</h1>
+                <h1 class="my-3">Edit Post</h1>
                 <form action="/posts/edit/<%= post._id %>" method="post" enctype="multipart/form-data">
 
                     <!-- Title -->
@@ -26,17 +42,21 @@
 
                     <!-- Image URL -->
                     <div class="mb-3">
-                        <label for="image" class="form-label">Image</label>
+                        <label for="image" class="form-label"><small>Image (File size less than 10 mb)</small></label>
                         <input type="file" name="image" id="image" class="form-control" accept=".jpeg, .jpg">
+
                     </div>
 
                     <!-- Submit Button -->
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary mb-3">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    
+    
+</body>
+</html>
 
-    <%- include('./partials/footer.ejs') %>

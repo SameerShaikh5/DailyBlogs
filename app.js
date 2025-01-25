@@ -6,7 +6,7 @@ const postRoutes = require('./routes/postRoutes')
 const postModel = require('./models/postModel')
 const userRoutes = require('./routes/userRoutes')
 const cookieParser = require('cookie-parser')
-const checkToken = require('./middleware/checkToken')
+const isLoggedIn = require('./middleware/isLoggedIn')
 const expressSession = require('express-session')
 const flash = require('connect-flash')
 const PORT = process.env.PORT || 3000
@@ -26,10 +26,7 @@ app.use(flash())
 app.set('view engine', 'ejs')
 
 // custom middleware
-app.use((req, res, next) => {
-    res.locals.isloggedin = !!req.cookies.token;
-    next();
-});
+app.use(isLoggedIn)
 
 
 // mongodb connection
@@ -45,7 +42,7 @@ app.get('/', async (req,res)=>{
 
 //All Routes
 app.use('/posts', postRoutes)
-app.use('/users',checkToken, userRoutes)
+app.use('/users', userRoutes)
 
 app.listen(PORT, ()=>{
     console.log("Server Started...")

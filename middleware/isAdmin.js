@@ -1,10 +1,8 @@
-function isAdmin(req, res, next) {
-    // Check if the user is not authenticated or not an admin
-    if (!req.user || req.user.isAdmin === false) {
-        return res.status(401).send("Unauthorized Access!!");
+const isAdmin = (req, res, next) => {
+    if (req.user && req.user.isAdmin) {
+        return next();
     }
+    return res.status(403).send("Access denied. Admins only.");
+};
 
-    next();
-}
-
-module.exports = isAdmin;
+module.exports = isAdmin
